@@ -1,0 +1,56 @@
+:root {
+  --night: #0c0a1d;
+  --diamond: #26103f;
+  --magenta: #e1007c;
+  --gold: #e3b341;
+  --gold-pale: #f4dc9a;
+  --ivory: #f2ead8;
+  --font: 'Cormorant Garamond', Garamond, Georgia, serif;
+  --font-menacing: 'Potta One', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.45;
+  color: var(--ivory);
+  background-color: var(--night);
+  /* rombi allungati alternati viola / blu notte */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 110' preserveAspectRatio='none'%3E%3Crect width='60' height='110' fill='%230c0a1d'/%3E%3Cpolygon points='30,0 60,55 30,110 0,55' fill='%2326103f'/%3E%3C/svg%3E");
+  background-size: 130px 240px;
+  background-attachment: fixed;
+}
+
+/* vignetta su tutta la pagina */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 30%, rgb(0 0 0 / 0.92) 100%);
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+button {
+  font: inherit;
+}

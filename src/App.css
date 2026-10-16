@@ -1,0 +1,253 @@
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem 1.5rem;
+  text-align: center;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.55));
+}
+
+.header h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  white-space: nowrap;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  letter-spacing: 0.01em;
+  color: var(--gold);
+  text-shadow: 0 2px 8px rgb(0 0 0 / 0.6);
+}
+
+/* ゴゴゴ: l'unico dettaglio "rumoroso" della pagina */
+.menacing {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-menacing);
+  font-weight: 400;
+  color: var(--magenta);
+  /* contorno scuro come le onomatopee dell'anime */
+  -webkit-text-stroke: 0.08em #1a0b2e;
+  paint-order: stroke fill;
+}
+
+/* lato destro specchiato */
+.menacing:last-child {
+  flex-direction: row-reverse;
+}
+
+/* dal più lontano (1) al più vicino al titolo (5): crescono e salgono/scendono a zig-zag */
+.menacing span {
+  display: inline-block;
+  font-size: var(--s);
+  transform: translateY(var(--y)) rotate(-12deg);
+  animation: tremble 2.4s ease-in-out infinite;
+}
+
+.menacing span:nth-child(1) { --s: 0.3em; --y: -0.5em; animation-delay: -0.4s; }
+.menacing span:nth-child(2) { --s: 0.4em; --y: 0.6em; animation-delay: -0.9s; }
+.menacing span:nth-child(3) { --s: 0.5em; --y: -0.4em; animation-delay: -1.4s; }
+.menacing span:nth-child(4) { --s: 0.65em; --y: 0.35em; animation-delay: -1.9s; }
+.menacing span:nth-child(5) { --s: 0.85em; --y: 0; }
+
+@keyframes tremble {
+  0%, 100% { translate: 0 0; }
+  20% { translate: 1px -1px; }
+  40% { translate: -1px 1px; }
+  60% { translate: 1px 1px; }
+  80% { translate: -1px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menacing span { animation: none; }
+}
+
+.rules {
+  max-width: 40ch;
+  margin: 0;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--ivory);
+}
+
+/* ---------- Scoreboard ---------- */
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.scoreboard p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0 1.75rem;
+  font-size: 0.95rem;
+  color: rgb(242 234 216 / 0.7);
+}
+
+.scoreboard p + p {
+  border-left: 1px solid rgb(227 179 65 / 0.45);
+}
+
+.scoreboard span {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Griglia carte ---------- */
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+}
+
+.status {
+  text-align: center;
+  font-style: italic;
+  color: var(--gold-pale);
+  font-size: 1.2rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 800px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Card (stile carta da tarocchi) ---------- */
+.card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--ivory);
+  background: radial-gradient(circle at 50% 30%, #2c1650 0%, #120c26 80%);
+  border: 1.5px solid rgb(227 179 65 / 0.8);
+  border-radius: 6px;
+  box-shadow: 0 14px 30px rgb(0 0 0 / 0.8), 0 4px 8px rgb(0 0 0 / 0.6);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* cornice interna sottile */
+.card::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 6px;
+  border: 1px solid rgb(227 179 65 / 0.55);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s ease;
+}
+
+.card-name {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2.5rem 0.75rem 0.9rem;
+  background: linear-gradient(180deg, transparent 0%, rgb(12 10 29 / 0.85) 55%, var(--night) 100%);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.15;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 22px 40px rgb(0 0 0 / 0.85), 0 6px 12px rgb(0 0 0 / 0.6);
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+.card:focus-visible,
+.restart:focus-visible {
+  outline: 2px solid var(--magenta);
+  outline-offset: 3px;
+}
+
+/* ---------- Vittoria ---------- */
+.overlay {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(8 6 20 / 0.82);
+}
+
+.victory {
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: radial-gradient(circle at 50% 0%, #2c1650 0%, var(--night) 75%);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.6);
+}
+
+.victory h2 {
+  font-size: 2.75rem;
+  font-style: italic;
+  color: var(--magenta);
+}
+
+.victory p {
+  margin: 0.75rem 0 1.75rem;
+  color: var(--gold-pale);
+}
+
+.restart {
+  padding: 0.7rem 1.75rem;
+  background: var(--gold);
+  color: var(--night);
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.restart:hover {
+  background: var(--gold-pale);
+}
