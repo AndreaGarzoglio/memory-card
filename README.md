@@ -1,16 +1,42 @@
-# React + Vite
+# Stand Memory
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A memory card game themed on *JoJo's Bizarre Adventure: Golden Wind* (Part 5).
 
-Currently, two official plugins are available:
+**Live demo:** https://memory-card-three-tau.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## About
 
-## React Compiler
+This project is part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-react-new-memory-card) React course. The goal is to practice managing state with hooks while fetching and using data from an external API.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The assignment asks for:
 
-## Expanding the ESLint configuration
+- cards with images (and text) fetched from an external API
+- a scoreboard with the current score and the best score
+- a function that shuffles the cards every time one is clicked, also run when the component mounts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How to play
+
+Click each Stand only once. After every click the cards are shuffled. Pick a Stand you already clicked and your score resets to zero. Click every Stand without repeating one to win.
+
+## How it works
+
+- The Stands of Part 5 (name and image) are fetched from the [JoJo Wiki](https://jojowiki.com) MediaWiki API, inside a `useEffect` with a cleanup flag to ignore stale responses.
+- Ten random Stands are shown at a time, and at least one of them is always one you haven't clicked yet, so the game can always be won.
+- The current score is derived from the list of clicked Stands rather than stored separately.
+
+## Built with
+
+- React
+- Vite
+- Plain CSS
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Credits
+
+*JoJo's Bizarre Adventure* and all its characters belong to Hirohiko Araki and Shueisha. Stand images come from the JoJo Wiki. This is a non-commercial learning project.
