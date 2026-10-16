@@ -21,7 +21,7 @@ Click each Stand only once. After every click the cards are shuffled. Pick a Sta
 ## How it works
 
 - The Stands of Part 5 (name and image) are fetched from the [JoJo Wiki](https://jojowiki.com) MediaWiki API, inside a `useEffect` with a cleanup flag to ignore stale responses.
-- Ten random Stands are shown at a time, and at least one of them is always one you haven't clicked yet, so the game can always be won.
+- Ten random Stands are shown at a time, and at least three of them (or all the ones left, near the end) are always Stands you haven't clicked yet, so the game can always be won.
 - The current score is derived from the list of clicked Stands rather than stored separately.
 
 ## Built with

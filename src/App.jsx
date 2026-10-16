@@ -4,6 +4,7 @@ import './App.css'
 import logo from './assets/logo-golden-wind.png'
 import { useState, useEffect } from 'react'
 const VISIBLE_COUNT = 10
+const MIN_UNCLICKED = 3
 const API_URL = "https://jojowiki.com/api.php?action=query&generator=categorymembers&gcmtitle=Category:Part_5_Stands&gcmnamespace=0&gcmlimit=500&prop=pageimages&pithumbsize=300&format=json&origin=*"
 
 
@@ -116,19 +117,13 @@ function Menacing() {
   )
 }
 
-// Pesca VISIBLE_COUNT stand a caso, garantendo che almeno uno
-// non sia ancora stato cliccato (altrimenti il giocatore perderebbe per forza)
+// Pesca VISIBLE_COUNT stand a caso, garantendo che almeno MIN_UNCLICKED
+// non siano ancora stati cliccati (o tutti quelli rimasti, se sono meno)
 function pickVisible(all, clickedIds) {
-  const picked = shuffle(all).slice(0, VISIBLE_COUNT);
-  const hasUnclicked = picked.some((s) => !clickedIds.includes(s.id));
-  if (!hasUnclicked) {
-    const unclicked = all.filter((s) => !clickedIds.includes(s.id));
-    if (unclicked.length > 0) {
-      const randomUnclicked = unclicked[Math.floor(Math.random() * unclicked.length)];
-      picked[Math.floor(Math.random() * picked.length)] = randomUnclicked;
-    }
-  }
-  return picked;
+  const unclicked = shuffle(all.filter((s) => !clickedIds.includes(s.id)));
+  const guaranteed = unclicked.slice(0, MIN_UNCLICKED);
+  const others = shuffle(all.filter((s) => !guaranteed.includes(s)));
+  return shuffle([...guaranteed, ...others.slice(0, VISIBLE_COUNT - guaranteed.length)]);
 }
 
 function shuffle(arr) {
